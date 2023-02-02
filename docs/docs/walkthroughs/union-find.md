@@ -105,7 +105,7 @@ elements in the universe. Let us introduce this as a logical model attached to
 our `universe` type:
 
 ```ocaml
-(*@ type 'a universe *)
+(*@ type 'a universe' *)
 (*@ mutable model dom : 'a element set *)
 ```
 
@@ -126,7 +126,7 @@ constructor should ensure two things:
 
 ```ocaml {4,5}
 val make : 'a -> 'a element
-(*@ e = make [u: 'a universe] v
+(*@ e = make [u: 'a universe'] v
     modifies u.dom
     ensures not (Set.mem e (old u.dom))
     ensures u.dom = Set.add e (old u.dom) *)
@@ -137,7 +137,7 @@ an element that is part of the universe:
 
 ```ocaml {3,4}
 val find : 'a element -> 'a element
-(*@ e = find [u: 'a universe] x
+(*@ e = find [u: 'a universe'] x
     requires Set.mem x u.dom
     ensures Set.mem e u.dom *)
 ```
@@ -150,7 +150,7 @@ unspecified way).
 
 ```ocaml {3-4,6}
 val union : 'a element -> 'a element -> unit
-(*@ union [u: 'a universe] x y
+(*@ union [u: 'a universe'] x y
     requires Set.mem x u.dom
     requires Set.mem y u.dom
     modifies u
@@ -170,11 +170,12 @@ element` function. We can also add two invariants:
   representative.
 
 ```ocaml {3-5}
-(*@ type 'a universe *)
+(*@ type 'a universe'' *)
 (*@ mutable model dom : 'a element set
     mutable model rep : 'a element -> 'a element
-    invariant forall e. Set.mem e dom -> Set.mem (rep e) dom
-    invariant forall e. Set.mem e dom -> rep (rep e) = rep e *)
+    with u
+    invariant forall e. Set.mem e u.dom -> Set.mem (u.rep e) u.dom
+    invariant forall e. Set.mem e u.dom -> u.rep (u.rep e) = u.rep e *)
 ```
 
 :::caution
@@ -192,7 +193,7 @@ representative, and all other representatives are left unchanged:
 
 ```ocaml {6}
 val make : 'a -> 'a element
-(*@ e = make [u: 'a universe] v
+(*@ e = make [u: 'a universe''] v
     modifies u.dom
     ensures not (Set.mem e (old u.dom))
     ensures u.dom = Set.add e (old u.dom)
@@ -212,7 +213,7 @@ representative of the input element:
 
 ```ocaml {5}
 val find : 'a element -> 'a element
-(*@ e = find [u: 'a universe] x
+(*@ e = find [u: 'a universe''] x
     requires Set.mem x u.dom
     ensures Set.mem e u.dom
     ensures e = u.rep x *)
@@ -228,7 +229,7 @@ are in the same subset (or equivalence class). This is the case iff they have
 the same subset representative:
 
 ```ocaml
-(*@ predicate equivalent (u: 'a universe) (x y: 'a element) =
+(*@ predicate equiv (u: 'a universe'') (x y: 'a element) =
       u.rep x = u.rep y *)
 ```
 
@@ -236,14 +237,14 @@ We can now use that to state that elements that are not equivalent to `x` or `y`
 have the same representative:
 
 ```ocaml {7-9}
-val union : 'a elements -> 'a elements -> unit
-(*@ union [u: 'a universe] x y
+val union : 'a element -> 'a element -> unit
+(*@ union [u: 'a universe''] x y
     requires Set.mem x u.dom
     requires Set.mem y u.dom
     modifies u
     ensures u.dom = old u.dom
     ensures forall e.
-      not (old (equivalent u x e \/ equivalent u y e))
+      not (old (equiv u x e \/ equiv u y e))
       -> u.rep e = old (u.rep e) *)
 ```
 
@@ -253,15 +254,15 @@ the old `y` representative.
 
 ```ocaml {9-13}
 val union : 'a element -> 'a element -> unit
-(*@ union [u: 'a universe] x y
+(*@ union [u: 'a universe''] x y
     requires Set.mem x u.dom
     requires Set.mem y u.dom
     modifies u
     ensures u.dom = old u.dom
-    ensures forall e. not (old (equivalent u x e \/ equivalent u y e))
+    ensures forall e. not (old (equiv u x e \/ equiv u y e))
                       -> u.rep e = old (u.rep e)
     ensures exists r. (r = old (u.rep x) \/ r = old (u.rep y))
-      /\ forall e. old (equivalent u x e \/ equivalent u y e)
+      /\ forall e. old (equiv u x e \/ equiv u y e)
                    -> u.rep e = r *)
 ```
 

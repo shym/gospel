@@ -8,11 +8,12 @@ OCaml types can be annotated with Gospel specifications in order to model their
 contents and express invariants. Consider the following example of a container
 data-structure.
 
-```ocaml
+<!-- the following block is duplicated, so skip it when checking the file -->
+```ocaml invalidSyntax
 type 'a t
 (*@ model capacity: int
     mutable model contents: 'a Set.t
-    invariant Set.cardinal contents <= capacity *)
+    with t invariant Set.cardinal t.contents <= t.capacity *)
 ```
 
 The specification of this type contains three elements:
@@ -46,11 +47,12 @@ keyword `mutable` to denote that the model may be mutated during the execution
 of the program, e.g. by a function call. It is then followed by a type annotated
 name for that model, in a fashion similar to OCaml's record fields.
 
-```ocaml {2,3}
+<!-- invalidSyntax because many code extracts define the type t -->
+```ocaml {2,3} invalidSyntax
 type 'a t
 (*@ model capacity: int
     mutable model contents: 'a Set.t
-    invariant Set.cardinal contents <= capacity *)
+    with t invariant Set.cardinal t.contents <= t.capacity *)
 ```
 
 ## Mutable types
@@ -58,7 +60,8 @@ type 'a t
 Gospel lets you specify when a type may contain some mutable state by using the
 keyword `ephemeral` in its annotation:
 
-```ocaml {3}
+<!-- TODO: invalidSyntax here on ephemeral -->
+```ocaml {3} invalidSyntax
 type t
 (*@ model capacity: int
     ephemeral *)
@@ -77,7 +80,7 @@ properties may be added after the `invariant` keyword:
 type 'a t
 (*@ model capacity: int
     mutable model contents: 'a Set.t
-    invariant Set.cardinal contents <= capacity *)
+    with t invariant Set.cardinal t.contents <= t.capacity *)
 ```
 
 Note that functions may break these invariants internally, but must restore them
