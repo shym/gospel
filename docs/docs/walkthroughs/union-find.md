@@ -228,7 +228,7 @@ are in the same subset (or equivalence class). This is the case iff they have
 the same subset representative:
 
 ```ocaml
-(*@ predicate equivalent (u: 'a universe) (x y: 'a element) =
+(*@ predicate equiv (u: 'a universe) (x y: 'a element) =
       u.rep x = u.rep y *)
 ```
 
@@ -243,7 +243,7 @@ val union : 'a elements -> 'a elements -> unit
     modifies u
     ensures u.dom = old u.dom
     ensures forall e.
-      not (old (equivalent u x e \/ equivalent u y e))
+      not (old (equiv u x e \/ equiv u y e))
       -> u.rep e = old (u.rep e) *)
 ```
 
@@ -258,10 +258,10 @@ val union : 'a element -> 'a element -> unit
     requires Set.mem y u.dom
     modifies u
     ensures u.dom = old u.dom
-    ensures forall e. not (old (equivalent u x e \/ equivalent u y e))
+    ensures forall e. not (old (equiv u x e \/ equiv u y e))
                       -> u.rep e = old (u.rep e)
     ensures exists r. (r = old (u.rep x) \/ r = old (u.rep y))
-      /\ forall e. old (equivalent u x e \/ equivalent u y e)
+      /\ forall e. old (equiv u x e \/ equiv u y e)
                    -> u.rep e = r *)
 ```
 
