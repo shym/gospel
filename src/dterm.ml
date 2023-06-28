@@ -365,7 +365,7 @@ and term_node ~loc env prop dty dterm_node =
   | DTapp (ls, [ dt1 ]) when ls.ls_field ->
       t_field (term env false dt1) ls (Option.map ty_of_dty dty) loc
   | DTapp (ls, dtl) ->
-      t_app ls (List.map (term env false) dtl) (Option.map ty_of_dty dty) loc
+      t_app ~loc ls (List.map (term env false) dtl) (Option.map ty_of_dty dty) loc
   | DTif (dt1, dt2, dt3) ->
       let prop = prop || dty = None in
       t_if (term env true dt1) (term env prop dt2) (term env prop dt3) loc

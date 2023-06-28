@@ -81,26 +81,28 @@ let rec fold_left2 f accu l1 l2 =
   | (_, _) -> accu
 
 let ls_arg_inst ls tl =
-  try
-    fold_left2
-      (fun tvm ty t -> ty_match tvm ty (t_type t))
-      Mtv.empty ls.ls_args tl
-  with Invalid_argument _ ->
-    let loc = match tl with [] -> Location.none | t :: _ -> t.t_loc in
-    W.error ~loc
-      (W.Bad_arity (ls.ls_name.id_str, List.length ls.ls_args, List.length tl))
+  fold_left2
+    (fun tvm ty t -> ty_match tvm ty (t_type t))
+    Mtv.empty ls.ls_args tl
 
-let ls_app_inst ls tl ty =
-  let s = ls_arg_inst ls tl in
-  match (ls.ls_value, ty) with
-  | Some _, None ->
-      (* FIXME: get a proper location here *)
-      W.error ~loc:Location.none (W.Predicate_symbol_expected ls.ls_name.id_str)
-  | None, Some _ ->
-      (* FIXME: get a proper location here *)
-      W.error ~loc:Location.none (W.Function_symbol_expected ls.ls_name.id_str)
-  | Some vty, Some ty -> ty_match s vty ty
-  | None, None -> s
+let ls_app_inst ?loc ls tl ty =
+  try
+    let s = ls_arg_inst ls tl in
+    match (ls.ls_value, ty) with
+    | Some _, None ->
+        (* FIXME: get a proper location here *)
+        W.error ~loc:Location.none
+          (W.Predicate_symbol_expected ls.ls_name.id_str)
+    | None, Some _ ->
+        (* FIXME: get a proper location here *)
+        W.error ~loc:Location.none
+          (W.Function_symbol_expected ls.ls_name.id_str)
+    | Some vty, Some ty -> (* TODO Rebuild type for partial application *) ty_match s vty ty
+    | None, None -> s
+  with TypeMismatch (ty1, ty2) ->
+    let t1 = Fmt.str "%a" print_ty ty1 in
+    let t2 = Fmt.str "%a" print_ty ty2 in
+    W.error ~loc:(Option.value ~default:Location.none loc) (W.Bad_type (t1, t2))
 
 (** Pattern constructors *)
 
@@ -131,8 +133,8 @@ let mk_term t_node t_ty t_loc = { t_node; t_ty; t_attrs = []; t_loc }
 let t_var vs = mk_term (Tvar vs) (Some vs.vs_ty)
 let t_const c ty = mk_term (Tconst c) (Some ty)
 
-let t_app ls tl ty =
-  ignore (ls_app_inst ls tl ty : ty Mtv.t);
+let t_app ?loc ls tl ty =
+  ignore (ls_app_inst ?loc ls tl ty : ty Mtv.t);
   mk_term (Tapp (ls, tl)) ty
 
 let t_field t ls ty =
