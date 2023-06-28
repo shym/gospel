@@ -81,7 +81,7 @@ let ls_arg_inst ls tl =
       (fun tvm ty t -> ty_match tvm ty (t_type t))
       Mtv.empty ls.ls_args tl
   with Invalid_argument _ ->
-    let loc = (List.hd tl).t_loc in
+    let loc = match tl with [] -> Location.none | t :: _ -> t.t_loc in
     W.error ~loc
       (W.Bad_arity (ls.ls_name.id_str, List.length ls.ls_args, List.length tl))
 
