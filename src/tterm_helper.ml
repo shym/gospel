@@ -75,9 +75,14 @@ let t_ty_check t ty =
   | None, Some _ -> W.error ~loc:t.t_loc W.Formula_expected
   | None, None -> ()
 
+let rec fold_left2 f accu l1 l2 =
+  match (l1, l2) with
+  | (a1::l1, a2::l2) -> fold_left2 f (f accu a1 a2) l1 l2
+  | (_, _) -> accu
+
 let ls_arg_inst ls tl =
   try
-    List.fold_left2
+    fold_left2
       (fun tvm ty t -> ty_match tvm ty (t_type t))
       Mtv.empty ls.ls_args tl
   with Invalid_argument _ ->
