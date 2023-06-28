@@ -255,30 +255,36 @@ let rec dterm kid crcm ns denv { term_desc; term_loc = loc } : dterm =
     let dtl = app_unify_map ~loc ls (dterm_expected crcm) dtl dtyl in
     mk_dterm ~loc (DTapp (ls, dtl)) dty
   in
-  let rec gen_app ~loc ls tl =
+  let gen_app ~loc ls tl =
     let nls = List.length ls.ls_args and ntl = List.length tl in
-    match tl with
-    | [ { term_desc = Ttuple tl; _ } ] when ntl = nls && ls.ls_constr ->
-        gen_app ~loc ls tl
-    (* | _ when ntl < nls -> W.error ~loc (W.Partial_application ls.ls_name.id_str) *)
-    | _ ->
-        let args, extra = split_at_i nls tl in
-        let dtl = List.map (dterm kid crcm ns denv) args in
-        let dtyl, dty = specialize_ls ls in
-        if ntl < nls then
-          let dtyl1, dtyl2 = split_at_i ntl dtyl in
-          let dtl = List.map2 (dterm_expected crcm) dtl dtyl1 in
-          let dty = Option.value ~default:dty_bool dty in
-          let dty =
-            List.fold_right
-              (fun t1 t2 -> Dterm.Tapp (ts_arrow, [ t1; t2 ]))
-              dtyl2 dty
-          in
-          mk_dterm ~loc (DTapp (ls, dtl)) (Some dty)
-        else
-          let dtl = List.map2 (dterm_expected crcm) dtl dtyl in
-          let dt = mk_dterm ~loc (DTapp (ls, dtl)) dty in
-          if extra = [] then dt else map_apply dt extra
+    let args, extra = split_at_i nls tl in
+    let dtl = List.map (dterm kid crcm ns denv) args in
+    let dtyl, dty = specialize_ls ls in
+    if ntl < nls then
+      let dtyl1, dtyl2 = split_at_i ntl dtyl in
+      let dtl = List.map2 (dterm_expected crcm) dtl dtyl1 in
+      let dty = Option.value ~default:dty_bool dty in
+      let dty =
+        List.fold_right
+          (fun t1 t2 -> Dterm.Tapp (ts_arrow, [ t1; t2 ]))
+          dtyl2 dty
+      in
+      mk_dterm ~loc (DTapp (ls, dtl)) (Some dty)
+    else
+      let dtl = List.map2 (dterm_expected crcm) dtl dtyl in
+      let dt = mk_dterm ~loc (DTapp (ls, dtl)) dty in
+      if extra = [] then dt else map_apply dt extra
+  in
+  let gen_app ~loc ls tl =
+    if ls.ls_constr then
+      let n = List.length ls.ls_args in
+      match tl with
+      | [ { term_desc = Ttuple tl; _ } ] when List.length tl = n ->
+          gen_app ~loc ls tl
+      | _ when List.length tl < n ->
+          W.error ~loc (W.Partial_application ls.ls_name.id_str)
+      | _ -> gen_app ~loc ls tl
+    else gen_app ~loc ls tl
   in
   let fun_app ~loc ls tl =
     if ls.ls_field then W.error ~loc (W.Field_application ls.ls_name.id_str);
