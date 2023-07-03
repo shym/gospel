@@ -80,6 +80,15 @@ let rec fold_left2 f accu l1 l2 =
   | (a1::l1, a2::l2) -> fold_left2 f (f accu a1 a2) l1 l2
   | (_, _) -> accu
 
+let drop n xs =
+  let rec aux n xs =
+    match (n, xs) with
+    | 0, xs -> xs
+    | _, [] -> []
+    | n, _ :: xs -> aux (n - 1) xs
+  in
+  if n < 0 then invalid_arg "TODO" else aux n xs
+
 let ls_arg_inst ls tl =
   fold_left2
     (fun tvm ty t -> ty_match tvm ty (t_type t))
@@ -97,7 +106,17 @@ let ls_app_inst ?loc ls tl ty =
         (* FIXME: get a proper location here *)
         W.error ~loc:Location.none
           (W.Function_symbol_expected ls.ls_name.id_str)
-    | Some vty, Some ty -> (* TODO Rebuild type for partial application *) ty_match s vty ty
+    | Some vty, Some ty ->
+        let ntl = List.length tl in
+        let vty =
+          if ntl >= List.length ls.ls_args then vty
+          else
+            let args = drop ntl ls.ls_args in
+            List.fold_right
+              (fun t1 t2 -> { ty_node = Tyapp (ts_arrow, [ t1; t2 ]) })
+              args vty
+        in
+        (* TODO Rebuild type for partial application *) ty_match s vty ty
     | None, None -> s
   with TypeMismatch (ty1, ty2) ->
     let t1 = Fmt.str "%a" print_ty ty1 in
