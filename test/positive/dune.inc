@@ -131,6 +131,17 @@
  (action (diff %{dep:constants.mli} %{dep:constants.mli.output})))
 
 (rule
+ (target constructor_args.mli.output)
+ (deps (source_tree .))
+ (action
+   (with-outputs-to %{target}
+      (run %{project_root}/test/gospel_check.exe %{dep:constructor_args.mli}))))
+
+(rule
+ (alias runtest)
+ (action (diff %{dep:constructor_args.mli} %{dep:constructor_args.mli.output})))
+
+(rule
  (target exceptions.mli.output)
  (deps (source_tree .))
  (action

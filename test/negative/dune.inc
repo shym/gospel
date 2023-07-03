@@ -65,6 +65,17 @@
  (action (diff %{dep:constructor_arity4.mli} %{dep:constructor_arity4.mli.output})))
 
 (rule
+ (target constructor_arity5.mli.output)
+ (deps (source_tree .))
+ (action
+   (with-outputs-to %{target}
+      (run %{project_root}/test/gospel_check.exe %{dep:constructor_arity5.mli}))))
+
+(rule
+ (alias runtest)
+ (action (diff %{dep:constructor_arity5.mli} %{dep:constructor_arity5.mli.output})))
+
+(rule
  (target duplicate_declaration.mli.output)
  (deps (source_tree .))
  (action
@@ -173,6 +184,17 @@
 (rule
  (alias runtest)
  (action (diff %{dep:invariant5.mli} %{dep:invariant5.mli.output})))
+
+(rule
+ (target partial_application.mli.output)
+ (deps (source_tree .))
+ (action
+   (with-outputs-to %{target}
+      (run %{project_root}/test/gospel_check.exe %{dep:partial_application.mli}))))
+
+(rule
+ (alias runtest)
+ (action (diff %{dep:partial_application.mli} %{dep:partial_application.mli.output})))
 
 (rule
  (target t1.mli.output)
