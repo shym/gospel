@@ -263,6 +263,17 @@
  (action (diff %{dep:open_existing_type.mli} %{dep:open_existing_type.mli.output})))
 
 (rule
+ (target partial_application.mli.output)
+ (deps (source_tree .))
+ (action
+   (with-outputs-to %{target}
+      (run %{project_root}/test/gospel_check.exe %{dep:partial_application.mli}))))
+
+(rule
+ (alias runtest)
+ (action (diff %{dep:partial_application.mli} %{dep:partial_application.mli.output})))
+
+(rule
  (target pattern_matching.mli.output)
  (deps (source_tree .))
  (action
