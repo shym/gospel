@@ -2,6 +2,8 @@
 
 ## Added
 
+- Add ppx rewriter to display gospel contents as documentation with odoc
+  [\#288](https://github.com/ocaml-gospel/gospel/pull/288)
 - Add specific error message for patterns with guard on every clause.
   [\#220](https://github.com/ocaml-gospel/gospel/pull/220)
 - Added `when` guards in pattern-matching
