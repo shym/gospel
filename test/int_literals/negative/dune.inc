@@ -1,5 +1,6 @@
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to bad_constr_arg.mli.output
@@ -19,6 +20,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to invalid_literal.mli.output

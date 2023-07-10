@@ -1,5 +1,6 @@
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to no_modifies_value_of_unit.mli.output
@@ -19,6 +20,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to no_modifies_while_returning_unit.mli.output

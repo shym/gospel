@@ -1,5 +1,6 @@
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to bad_type_id.mli.output
@@ -19,6 +20,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to bad_type_multiple_args.mli.output
@@ -38,6 +40,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to complex_cycle.mli.output
@@ -57,6 +60,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to double_definition.mli.output
@@ -76,6 +80,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to simple_cycle.mli.output

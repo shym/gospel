@@ -1,5 +1,6 @@
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to basic.mli.output

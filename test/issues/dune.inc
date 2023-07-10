@@ -1,5 +1,6 @@
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to t1.mli.output
@@ -19,6 +20,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to t2.mli.output
@@ -38,6 +40,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to t3.mli.output
@@ -57,6 +60,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to t4.mli.output
@@ -76,6 +80,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to t5.mli.output
@@ -95,6 +100,7 @@
 
 (rule
  (deps
+  (env_var GOSPELDEBUG)
   (:checker %{project_root}/test/gospel_check.exe))
  (action
   (with-outputs-to t6.mli.output
