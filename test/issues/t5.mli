@@ -6,8 +6,5 @@ val f : ('a * 'b * 'c) list -> 'a list
 *)
 
 (* {gospel_expected|
-   [125] File "t5.mli", line 5, characters 31-32:
-         5 |     ensures xs = List.map (fun (x, _, _) -> x) ys
-                                            ^
-         Error: Syntax error.
+   [0] OK
    |gospel_expected} *)
