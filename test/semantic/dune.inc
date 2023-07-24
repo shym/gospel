@@ -1,6 +1,7 @@
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to invariant1.mli.output
    (run %{checker} %{dep:invariant1.mli}))))
@@ -19,7 +20,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to invariant2.mli.output
    (run %{checker} %{dep:invariant2.mli}))))
@@ -38,7 +40,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to invariant3.mli.output
    (run %{checker} %{dep:invariant3.mli}))))

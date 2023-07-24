@@ -20,7 +20,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to ints.mli.output
    (run %{checker} %{dep:ints.mli}))))

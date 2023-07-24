@@ -60,7 +60,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to complex_cycle.mli.output
    (run %{checker} %{dep:complex_cycle.mli}))))
@@ -99,7 +100,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to double_definition.mli.output
    (run %{checker} %{dep:double_definition.mli}))))

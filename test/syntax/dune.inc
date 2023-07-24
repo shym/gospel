@@ -1,6 +1,7 @@
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to constructor_args.mli.output
    (run %{checker} %{dep:constructor_args.mli}))))
@@ -19,7 +20,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to constructor_arity1.mli.output
    (run %{checker} %{dep:constructor_arity1.mli}))))
@@ -38,7 +40,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to constructor_arity2.mli.output
    (run %{checker} %{dep:constructor_arity2.mli}))))
@@ -57,7 +60,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to constructor_arity3.mli.output
    (run %{checker} %{dep:constructor_arity3.mli}))))
@@ -76,7 +80,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to constructor_arity4.mli.output
    (run %{checker} %{dep:constructor_arity4.mli}))))
@@ -95,7 +100,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to empty_match.mli.output
    (run %{checker} %{dep:empty_match.mli}))))
@@ -114,7 +120,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to field_application.mli.output
    (run %{checker} %{dep:field_application.mli}))))
@@ -133,7 +140,8 @@
 
 (rule
  (deps
-  (:checker %{project_root}/test/gospel_check.exe))
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
  (action
   (with-outputs-to invariant5.mli.output
    (run %{checker} %{dep:invariant5.mli}))))
