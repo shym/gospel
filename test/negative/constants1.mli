@@ -1,5 +1,4 @@
 val x : int -> int
-
 val invalid_modifies : unit -> unit
 (*@ invalid_modifies ()
     modifies x
