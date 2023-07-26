@@ -11,7 +11,7 @@
 (*@ axiom a2: 1 = true *)
 
 (* {gospel_expected|
-   [125] File "integer_not_bool.mli", line 11, characters 14-15:
+   [125] File "integer_not_bool1.mli", line 11, characters 14-15:
          11 | (*@ axiom a2: 1 = true *)
                             ^
          Error: This term has type `integer' but a term was expected of type `bool'.

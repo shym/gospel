@@ -15,8 +15,8 @@ type 'a t = { x : int; y : 'a }
     | { x = x; y = x } -> x *)
 
 (* {gospel_expected|
-   [125] File "t36.mli", line 11, characters 8-9:
-         11 | type 'a t = { x : int; y : 'a }
-                      ^
-         Error: The type `t' expects 1 argument(s) but was given 0 argument(s) here.
+   [125] File "record_pattern4.mli", line 15, characters 6-22:
+         15 |     | { x = x; y = x } -> x *)
+                    ^^^^^^^^^^^^^^^^
+         Error: The variable `x' is duplicated in this pattern.
    |gospel_expected} *)

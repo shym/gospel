@@ -11,7 +11,7 @@
 (*@ function f (x:float): bool = x = 2 *)
 
 (* {gospel_expected|
-   [125] File "t3.mli", line 11, characters 33-34:
+   [125] File "function_float_not_integer.mli", line 11, characters 33-34:
          11 | (*@ function f (x:float): bool = x = 2 *)
                                                ^
          Error: This term has type `float' but a term was expected of type `integer'.

@@ -3,6 +3,26 @@
   %{bin:gospel}
   (:checker %{project_root}/test/utils/testchecker.exe))
  (action
+  (with-outputs-to alpha_not_beta.mli.output
+   (run %{checker} %{dep:alpha_not_beta.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff alpha_not_beta.mli alpha_not_beta.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:alpha_not_beta.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
   (with-outputs-to any_not_bool.mli.output
    (run %{checker} %{dep:any_not_bool.mli}))))
 
@@ -43,6 +63,26 @@
   %{bin:gospel}
   (:checker %{project_root}/test/utils/testchecker.exe))
  (action
+  (with-outputs-to axiom_float_not_integer.mli.output
+   (run %{checker} %{dep:axiom_float_not_integer.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff axiom_float_not_integer.mli axiom_float_not_integer.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:axiom_float_not_integer.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
   (with-outputs-to constructor_arity5.mli.output
    (run %{checker} %{dep:constructor_arity5.mli}))))
 
@@ -77,6 +117,26 @@
   (chdir %{project_root}
    ; Syntax sanity check
    (run ocamlc -c %{dep:duplicate_declaration.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to exception_arity.mli.output
+   (run %{checker} %{dep:exception_arity.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff exception_arity.mli exception_arity.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:exception_arity.mli}))))
 
 (rule
  (deps
@@ -223,40 +283,140 @@
   %{bin:gospel}
   (:checker %{project_root}/test/utils/testchecker.exe))
  (action
-  (with-outputs-to int_not_bool.mli.output
-   (run %{checker} %{dep:int_not_bool.mli}))))
+  (with-outputs-to function_float_not_integer.mli.output
+   (run %{checker} %{dep:function_float_not_integer.mli}))))
 
 (rule
  (alias runtest)
  (action
-  (diff int_not_bool.mli int_not_bool.mli.output)))
+  (diff function_float_not_integer.mli function_float_not_integer.mli.output)))
 
 (rule
  (alias test-cmis)
  (action
   (chdir %{project_root}
    ; Syntax sanity check
-   (run ocamlc -c %{dep:int_not_bool.mli}))))
+   (run ocamlc -c %{dep:function_float_not_integer.mli}))))
 
 (rule
  (deps
   %{bin:gospel}
   (:checker %{project_root}/test/utils/testchecker.exe))
  (action
-  (with-outputs-to integer_not_bool.mli.output
-   (run %{checker} %{dep:integer_not_bool.mli}))))
+  (with-outputs-to int_not_bool1.mli.output
+   (run %{checker} %{dep:int_not_bool1.mli}))))
 
 (rule
  (alias runtest)
  (action
-  (diff integer_not_bool.mli integer_not_bool.mli.output)))
+  (diff int_not_bool1.mli int_not_bool1.mli.output)))
 
 (rule
  (alias test-cmis)
  (action
   (chdir %{project_root}
    ; Syntax sanity check
-   (run ocamlc -c %{dep:integer_not_bool.mli}))))
+   (run ocamlc -c %{dep:int_not_bool1.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to int_not_bool2.mli.output
+   (run %{checker} %{dep:int_not_bool2.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff int_not_bool2.mli int_not_bool2.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:int_not_bool2.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to integer_not_bool1.mli.output
+   (run %{checker} %{dep:integer_not_bool1.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff integer_not_bool1.mli integer_not_bool1.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:integer_not_bool1.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to integer_not_bool2.mli.output
+   (run %{checker} %{dep:integer_not_bool2.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff integer_not_bool2.mli integer_not_bool2.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:integer_not_bool2.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to integer_not_bool3.mli.output
+   (run %{checker} %{dep:integer_not_bool3.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff integer_not_bool3.mli integer_not_bool3.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:integer_not_bool3.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to integer_not_bool4.mli.output
+   (run %{checker} %{dep:integer_not_bool4.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff integer_not_bool4.mli integer_not_bool4.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:integer_not_bool4.mli}))))
 
 (rule
  (deps
@@ -462,7 +622,7 @@
  (deps
   %{bin:gospel}
   (:checker %{project_root}/test/utils/testchecker.exe)
-  int_not_bool.mli)
+  int_not_bool1.mli)
  (action
   (with-outputs-to open.mli.output
    (run %{checker} %{dep:open.mli}))))
@@ -504,6 +664,46 @@
   %{bin:gospel}
   (:checker %{project_root}/test/utils/testchecker.exe))
  (action
+  (with-outputs-to raises_float_not_integer.mli.output
+   (run %{checker} %{dep:raises_float_not_integer.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff raises_float_not_integer.mli raises_float_not_integer.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:raises_float_not_integer.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to record_pattern4.mli.output
+   (run %{checker} %{dep:record_pattern4.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff record_pattern4.mli record_pattern4.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:record_pattern4.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
   (with-outputs-to t1_not_t2.mli.output
    (run %{checker} %{dep:t1_not_t2.mli}))))
 
@@ -518,4 +718,167 @@
   (chdir %{project_root}
    ; Syntax sanity check
    (run ocamlc -c %{dep:t1_not_t2.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to tuple_arity1.mli.output
+   (run %{checker} %{dep:tuple_arity1.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff tuple_arity1.mli tuple_arity1.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:tuple_arity1.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to tuple_arity2.mli.output
+   (run %{checker} %{dep:tuple_arity2.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff tuple_arity2.mli tuple_arity2.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:tuple_arity2.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to type_arity1.mli.output
+   (run %{checker} %{dep:type_arity1.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff type_arity1.mli type_arity1.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:type_arity1.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to type_arity2.mli.output
+   (run %{checker} %{dep:type_arity2.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff type_arity2.mli type_arity2.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (with-accepted-exit-codes 2
+    (run ocamlc -c %{dep:type_arity2.mli})))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to type_arity3.mli.output
+   (run %{checker} %{dep:type_arity3.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff type_arity3.mli type_arity3.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (with-accepted-exit-codes 2
+    (run ocamlc -c %{dep:type_arity3.mli})))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to type_arity4.mli.output
+   (run %{checker} %{dep:type_arity4.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff type_arity4.mli type_arity4.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:type_arity4.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to type_arity5.mli.output
+   (run %{checker} %{dep:type_arity5.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff type_arity5.mli type_arity5.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (with-accepted-exit-codes 2
+    (run ocamlc -c %{dep:type_arity5.mli})))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to variant_integer.mli.output
+   (run %{checker} %{dep:variant_integer.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff variant_integer.mli variant_integer.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:variant_integer.mli}))))
 

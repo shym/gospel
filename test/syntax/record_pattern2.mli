@@ -18,8 +18,8 @@ type t = { x : int }
 (* TODO better error message: "unknown field name" *)
 
 (* {gospel_expected|
-   [125] File "t34.mli", line 15, characters 7-8:
-         15 |     | {y} -> y *)
+   [125] File "record_pattern2.mli", line 15, characters 7-8:
+         15 |     | {y} -> y
                      ^
          Error: Symbol y not found.
    |gospel_expected} *)

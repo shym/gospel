@@ -17,7 +17,7 @@ val f : x:('a -> 'b -> 'c) -> y:'a -> 'b -> 'c
    add a new return var in line 12 *)
 
 (* {gospel_expected|
-   [125] File "t27.mli", line 12, characters 25-26:
+   [125] File "no_return.mli", line 12, characters 25-26:
          12 | (*@ [b:integer],[a:'a] = f ~x [w:int] ~y [p:integer] z *)
                                        ^
          Error: Type checking error: too few parameters.
