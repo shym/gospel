@@ -4,7 +4,6 @@ val log2 : int -> int
     requires x = pow 2 i
     ensures r = i *)
 
-(* Gospel does not infer the type of ghost parameters *)
 val log2b : int -> int
 (* @ r = log2b [i] x
     requires i >= 0

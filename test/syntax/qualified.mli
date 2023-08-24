@@ -1,6 +1,6 @@
-open A1
+(*@ type t3 = Open2.t2 *)
 
-type t2 = t
+(*@ type t4 = Type.t *)
 
 (* {gospel_expected|
    [0] OK

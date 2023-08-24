@@ -9,6 +9,7 @@ val g : char -> string
 (*@ y = g x
     requires x = 'c'
     ensures y = "c" *)
+
 (* {gospel_expected|
    [0] OK
    |gospel_expected} *)

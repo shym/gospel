@@ -11,6 +11,6 @@ val f : int -> int
 *)
 
 (* {gospel_expected|
-   [125] File "guard2.mli", line 3, characters 76-76:
+   [125] File "guard.mli", line 4, characters 0-0:
          Error: Syntax error.
    |gospel_expected} *)

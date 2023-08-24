@@ -23,6 +23,26 @@
   %{bin:gospel}
   (:checker %{project_root}/test/utils/testchecker.exe))
  (action
+  (with-outputs-to allsorts2.mli.output
+   (run %{checker} %{dep:allsorts2.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff allsorts2.mli allsorts2.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:allsorts2.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
   (with-outputs-to ambiguous.mli.output
    (run %{checker} %{dep:ambiguous.mli}))))
 
@@ -37,6 +57,26 @@
   (chdir %{project_root}
    ; Syntax sanity check
    (run ocamlc -c %{dep:ambiguous.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to expressions_raises.mli.output
+   (run %{checker} %{dep:expressions_raises.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff expressions_raises.mli expressions_raises.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:expressions_raises.mli}))))
 
 (rule
  (deps
@@ -117,6 +157,26 @@
   (chdir %{project_root}
    ; Syntax sanity check
    (run ocamlc -c %{dep:fun_pair.mli}))))
+
+(rule
+ (deps
+  %{bin:gospel}
+  (:checker %{project_root}/test/utils/testchecker.exe))
+ (action
+  (with-outputs-to inner_cast.mli.output
+   (run %{checker} %{dep:inner_cast.mli}))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff inner_cast.mli inner_cast.mli.output)))
+
+(rule
+ (alias test-cmis)
+ (action
+  (chdir %{project_root}
+   ; Syntax sanity check
+   (run ocamlc -c %{dep:inner_cast.mli}))))
 
 (rule
  (deps

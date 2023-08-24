@@ -8,6 +8,8 @@
 (*  (as described in file LICENSE enclosed).                              *)
 (**************************************************************************)
 
+(* Examples from the Formal Methods 19 paper *)
+
 type 'a t
 (*@ mutable model view: 'a sequence *)
 

@@ -8,6 +8,7 @@ val f : int -> t -> bool
     requires t = D (n, n)
     requires t = C (n, n)
     requires let x = (n, n) in D x = D x
+    (* but not: *)
     (* requires let x = (n, n) in C x = C x *)
     requires match t with
              | A
@@ -17,9 +18,10 @@ val f : int -> t -> bool
              | D (_, _)
              | D ((_, _))
              | D _ -> true
+    raises E (_, _) -> true
+    (* but not: *)
     (* raises E _ -> false *)
     raises F _ -> true
-    raises E (_, _) -> true
     raises F (_, _) -> true *)
 
 (* {gospel_expected|

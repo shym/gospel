@@ -1,6 +1,6 @@
-type t
+open Type
 
-(* @ function f (x:integer):integer*)
+type t2 = t
 
 (* {gospel_expected|
    [0] OK

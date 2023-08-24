@@ -10,7 +10,7 @@
 
 (*@ open Type_decl *)
 
-(* Parameteless functions *)
+(* Parameterless functions *)
 
 (*@ function f1 : integer *)
 
