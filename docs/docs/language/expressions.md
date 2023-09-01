@@ -13,7 +13,7 @@ The main differences are:
 
 - Gospel can represent the following formulae:
 
-  ```ocaml
+  ```ocaml invalidSyntax
   forall x,y. rest  (* universal quantification of [x] and [y] in [rest] *)
   exists x,y. rest  (* existential quantification of [x] and [y] in [rest] *)
   form1 /\ form2    (* conjunction *)
@@ -24,7 +24,7 @@ The main differences are:
 
 - Gospel can represent the following terms:
 
-  ```ocaml
+  ```ocaml invalidSyntax
   old expr          (* value of [expr] before running the function
                        (in a post-condition of the function) *)
   s[i]              (* [i]-th element of the sequence [s] *)
