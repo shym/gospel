@@ -58,7 +58,7 @@ const katex = require("rehype-katex");
               type: "doc",
               docId: "welcome",
               position: "left",
-              label: "Docs",
+              label: "Blibla",
             },
             {
               href: "https://github.com/ocaml-gospel/gospel",
