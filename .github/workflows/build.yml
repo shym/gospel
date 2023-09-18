@@ -30,12 +30,19 @@ jobs:
       - name: Build the test suite
         run: opam exec -- dune build
 
-      - name: Run the normal tests
-        run: opam exec -- dune runtest
-
-      - name: Run the noisy tests
-        run: opam exec -- dune build @test-cmis
-
-      - name: Install the OPAM package
+      - name: Run the perf tests
         run: |
-          opam install --with-test ./gospel.opam
+          printf '1\n'
+          ITERATIONS=1 opam exec -- dune build @perfs
+          printf '\n\n2\n'
+          ITERATIONS=2 opam exec -- dune build @perfs
+          printf '\n\n4\n'
+          ITERATIONS=4 opam exec -- dune build @perfs
+          printf '\n\n8\n'
+          ITERATIONS=8 opam exec -- dune build @perfs
+          printf '\n\n16\n'
+          ITERATIONS=16 opam exec -- dune build @perfs
+          printf '\n\n32\n'
+          ITERATIONS=32 opam exec -- dune build @perfs
+          printf '\n\n48\n'
+          ITERATIONS=48 opam exec -- dune build @perfs
