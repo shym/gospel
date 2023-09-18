@@ -42,3 +42,7 @@ jobs:
           ITERATIONS=8 opam exec -- dune build @perfs
           printf '\n\n16\n'
           ITERATIONS=16 opam exec -- dune build @perfs
+          printf '\n\n32\n'
+          ITERATIONS=32 opam exec -- dune build @perfs
+          printf '\n\n48\n'
+          ITERATIONS=48 opam exec -- dune build @perfs
