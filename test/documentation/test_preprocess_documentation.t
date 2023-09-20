@@ -72,6 +72,19 @@ and without specifications:
   [@@@ocaml.text {| a ghost type |}]
   [@@@gospel {| type casper |}[@@gospel {| model transparent : bool |}]]
 
+We try to mimick OCaml behaviour regarding comments:
+
+  $ cat > foo.mli << EOF
+  > (*@ type casper *)
+  > (*
+  > (* inner comment *)
+  > *)
+  > (** a ghost type *)
+  > EOF
+  $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  [@@@gospel {| type casper |}]
+  [@@@ocaml.text {| a ghost type |}]
+
 Interleaving ghost-documentation-specification is not accepted if there is more
 than one newline between at least two of the consecutive elements:
 
