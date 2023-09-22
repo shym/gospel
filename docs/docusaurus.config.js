@@ -75,8 +75,8 @@ const katex = require("rehype-katex");
         prism: {
           defaultLanguage: "ocaml",
           additionalLanguages: ["ocaml", "ebnf"],
-          theme: "nightOwlLight",
-          darkTheme: "nightOwl",
+          theme: require("prism-react-renderer").themes.nightOwlLight,
+          darkTheme: require("prism-react-renderer").themes.nightOwl,
         },
       }),
   }
