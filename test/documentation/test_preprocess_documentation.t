@@ -85,6 +85,76 @@ We try to mimick OCaml behaviour regarding comments:
   [@@@gospel {| type casper |}]
   [@@@ocaml.text {| a ghost type |}]
 
+We try to mimick OCaml behaviour regarding when a Gospel specification should be
+attached to the previous value:
+
+  $ cat > foo.mli << EOF
+  > val x : int
+  > (*
+  > (* inner comment *)
+  > *)
+  > (*@ ensures x = 0 *)
+  > EOF
+  $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  val x : int[@@gospel {| ensures x = 0 |}]
+
+  $ cat > foo.mli << EOF
+  > val x : int
+  > (*
+  > (* inner comment *)
+  > 
+  > *)
+  > (*@ ensures x = 0 *)
+  > EOF
+  $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  val x : int[@@gospel {| ensures x = 0 |}]
+
+  $ cat > foo.mli << EOF
+  > val x : int
+  > (*
+  > (* inner comment *)
+  > *)
+  > 
+  > (*@ ensures x = 0 *)
+  > EOF
+  $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  val x : int[@@gospel {| ensures x = 0 |}]
+
+  $ cat > foo.mli << EOF
+  > val x : int
+  > (*
+  > "*)"
+  > *)
+  > (*@ ensures x = 0 *)
+  > EOF
+  $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  val x : int[@@gospel {| ensures x = 0 |}]
+
+  $ cat > foo.mli << EOF
+  > val x : int
+  > (*
+  > {longstring|
+  > 
+  > |longstring}
+  > *)
+  > (*@ ensures x = 0 *)
+  > EOF
+  $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  val x : int[@@gospel {| ensures x = 0 |}]
+
+  $ cat > foo.mli << EOF
+  > val x : int
+  > (*
+  > {longstring|
+  > 
+  > |longstring}
+  > *)
+  > 
+  > (*@ ensures x = 0 *)
+  > EOF
+  $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  val x : int[@@gospel {| ensures x = 0 |}]
+
 Interleaving ghost-documentation-specification is not accepted if there is more
 than one newline between at least two of the consecutive elements:
 
