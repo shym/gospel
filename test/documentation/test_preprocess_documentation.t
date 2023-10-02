@@ -85,8 +85,8 @@ We try to mimick OCaml behaviour regarding comments:
   [@@@gospel {| type casper |}]
   [@@@ocaml.text {| a ghost type |}]
 
-We try to mimick OCaml behaviour regarding when a Gospel specification should be
-attached to the previous value:
+We try to mimick OCaml behaviour regarding when a Gospel specification and/or a
+documentation should be attached to a value:
 
   $ cat > foo.mli << EOF
   > val x : int
@@ -153,6 +153,41 @@ attached to the previous value:
   > (*@ ensures x = 0 *)
   > EOF
   $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  val x : int[@@gospel {| ensures x = 0 |}]
+
+  $ cat > foo.mli << EOF
+  > (** [x]'s documentation *)
+  > (*
+  > {longstring|
+  > 
+  > |longstring}
+  > *)
+  > val x : int
+  > (*
+  > {longstring|
+  > 
+  > |longstring}
+  > *)
+  > 
+  > (*@ ensures x = 0 *)
+  > EOF
+  $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  val x : int[@@ocaml.doc " [x]'s documentation "][@@gospel
+                                                    {| ensures x = 0 |}]
+
+  $ cat > foo.mli << EOF
+  > (** Module's documentation *)
+  > 
+  > val x : int
+  > (*
+  > {longstring|
+  > 
+  > |longstring}
+  > *)
+  > (*@ ensures x = 0 *)
+  > EOF
+  $ ocamlc -pp "gospel pps" -dsource -w +50 foo.mli
+  [@@@ocaml.text " Module's documentation "]
   val x : int[@@gospel {| ensures x = 0 |}]
 
 Interleaving ghost-documentation-specification is not accepted if there is more
