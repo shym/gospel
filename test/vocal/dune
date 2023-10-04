@@ -13,4 +13,4 @@
  (deps iterated.mli %{bin:gospel})
  (action
   (bash
-   "ls -al iterated.mli; grep Block iterated.mli | tail -n 1; time OCAMLRUNPARAM=v=0x400 %{bin:gospel} pps iterated.mli > /dev/null")))
+   "ls -al iterated.mli; grep Block iterated.mli | tail -n 1; time OCAMLRUNPARAM=v=0x400,b %{bin:gospel} pps iterated.mli > /dev/null")))
