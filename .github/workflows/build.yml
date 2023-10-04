@@ -32,17 +32,13 @@ jobs:
 
       - name: Run the perf tests
         run: |
-          printf '1\n'
-          ITERATIONS=1 opam exec -- dune build @perfs
-          printf '\n\n2\n'
-          ITERATIONS=2 opam exec -- dune build @perfs
-          printf '\n\n4\n'
-          ITERATIONS=4 opam exec -- dune build @perfs
-          printf '\n\n8\n'
-          ITERATIONS=8 opam exec -- dune build @perfs
-          printf '\n\n16\n'
-          ITERATIONS=16 opam exec -- dune build @perfs
-          printf '\n\n32\n'
-          ITERATIONS=32 opam exec -- dune build @perfs
-          printf '\n\n48\n'
-          ITERATIONS=48 opam exec -- dune build @perfs
+          printf '\n\n64\n'
+          ITERATIONS=64 opam exec -- dune build @perfs
+          printf '\n\n256\n'
+          ITERATIONS=256 opam exec -- dune build @perfs
+          printf '\n\n512\n'
+          ITERATIONS=512 opam exec -- dune build @perfs
+          printf '\n\n1024\n'
+          ITERATIONS=1024 opam exec -- dune build @perfs
+          printf '\n\n2048\n'
+          ITERATIONS=2048 opam exec -- dune build @perfs
